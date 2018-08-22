@@ -1,2 +1,2 @@
 # Flux
-A basic pseudocode-style language used for programming in educational web applications. This repository includes a compiler that can translate the language to JavaScript.
+A basic pseudocode-style language used for programming in educational web applications. This repository includes a parser that can help translate the language to JavaScript.
