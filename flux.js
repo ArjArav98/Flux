@@ -48,6 +48,18 @@ function startParse(){ //This function calls all the parse functions in order an
 /* Functions needed to split input into individual stmts. */
 /*========================================================*/
 
+function removeWhitespaces(stmt){
+	var input_cpy="";
+	var len=stmt.length;
+	var start
+	var i=0;
+	
+	while(i<len){
+		if()
+		i+=1;
+	}
+}
+
 function cleanInput(input){ //Removes the input text of all newline characters. This makes it easier for us to separate statements in the inputSplit() function. Why? Because I wasn't able to find out how to detect newline characters in a JS string. :P
 	var input_cpy="";
 	var len=input.length;
@@ -175,3 +187,16 @@ function checkLine(statement){
 /*=============================================*/
 /*              They end here.                 */
 /*=============================================*/
+
+
+
+/*===============================================*/
+/* Functions needed to exec syntax once analysed */
+/*===============================================*/
+
+var cmdArray=[]; //This array contains the list of statements that are valid
+var execFuncArray=[]; //This array contains the list of funtions that are executed when the stmt is identified.
+
+/*===============================================*/
+/*                   They end here.              */
+/*===============================================*/
