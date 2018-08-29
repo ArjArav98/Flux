@@ -24,15 +24,17 @@ function identifyKey(e){ //This function starts the parsing when the enter key i
 
 function startParse(){ //This function calls all the parse functions in order and passes the right arguments.
 	
-	var input=document.getElementById("flux").value; //We first get the input and 'clean' it.
-	input=cleanInput(input);
+	var input=document.getElementById("flux").value; //We get the input from the textarea
+	
+	input=removeNewlines(input); //We remove all newline characters in the input
+	input=removeWhitespaces(input); //We remove all whitespaces in the input
 	
 	var stmtArray=inputSplit(input); //We then split the array into individual statements.
 	
-	if(analyseForSyntaxErrors(stmtArray)==false){
+	if(analyseForSyntaxErrors(stmtArray)==false){ //We then check each individual stmt for errors. Only if there are no errors in all stmts, we execute.
 		alert("There is an error in this sentence!");
 	}
-	else{
+	else{ //Otherwise, we generate an error message.
 		alert("This is syntactically correct!");
 	}
 	
@@ -48,19 +50,32 @@ function startParse(){ //This function calls all the parse functions in order an
 /* Functions needed to split input into individual stmts. */
 /*========================================================*/
 
-function removeWhitespaces(stmt){
+function removeWhitespaces(stmt){ //This function removes whitespaces at the end of a stmt before a semicolon
 	var input_cpy="";
 	var len=stmt.length;
-	var start
+	var characterOccurence=0; //This var records the index of the latest occurence of a non-space character
+	var whitespaceOccurence=len; //This var records the index of the latest occurence of a space character
 	var i=0;
 	
-	while(i<len){
-		if()
+	while(i<(len-1)){
+		if(stmt[i]!=" "){
+			characterOccurence=i;
+		}
+		else{
+			whitespaceOccurence=i;
+		}
 		i+=1;
+	}
+	
+	if(whitespaceOccurence>characterOccurence){ //If the occurence of the last space char in the senetnce is after the last non-space char, then this happens
+		return stmt.substring(0,characterOccurence+1)+";";
+	}
+	else{ //Otherwise, this
+		return stmt;
 	}
 }
 
-function cleanInput(input){ //Removes the input text of all newline characters. This makes it easier for us to separate statements in the inputSplit() function. Why? Because I wasn't able to find out how to detect newline characters in a JS string. :P
+function removeNewlines(input){ //Removes the input text of all newline characters. This makes it easier for us to separate statements in the inputSplit() function. Why? Because I wasn't able to find out how to detect newline characters in a JS string. :P
 	var input_cpy="";
 	var len=input.length;
 	var i=0;
