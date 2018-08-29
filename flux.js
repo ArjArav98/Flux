@@ -1,5 +1,17 @@
 //The first step in building a parser is to separate each input into an array of single statements
 
+/*==================*/
+/* Global Variables */
+/*==================*/
+
+var cmdArray=[]; //This array contains the list of valid statements entered by the user.
+var cmdFuncArray=[]; //This array contains the list of functions that must be executed by the corresponding stmts in the cmdArray
+var execOrderArray=[]; //This records the statments which must be executed and in which order so it is easy for us in the end.
+
+/*==================*/
+/*  They end here.  */
+/*==================*/
+
 
 /*===============================================*/
 /* The Event-Listener Statements are added here. */
@@ -32,10 +44,10 @@ function startParse(){ //This function calls all the parse functions in order an
 	var stmtArray=inputSplit(input); //We then split the array into individual statements.
 	
 	if(analyseForSyntaxErrors(stmtArray)==false){ //We then check each individual stmt for errors. Only if there are no errors in all stmts, we execute.
-		alert("There is an error in this sentence!");
+		alert("There seems to be an error in your code!");
 	}
 	else{ //Otherwise, we generate an error message.
-		alert("This is syntactically correct!");
+		executeStatements(stmtArray);
 	}
 	
 }
@@ -186,17 +198,18 @@ function analyseForSyntaxErrors(statements){
 }
 
 function checkLine(statement){
+	var len=cmdArray.length;
+	var i=0;
 	
-	if(statement=="move"){
-		return true;
-	}
-	else if(statement=="turnRight"){
-		return true;
-	}
-	else{
-		return false;
+	while(i<len){
+		if(cmdArray[i]==statement){
+			pushInOrder(i);
+			return true;
+		}
+		i+=1;
 	}
 	
+	return false;
 }
 
 /*=============================================*/
@@ -209,8 +222,27 @@ function checkLine(statement){
 /* Functions needed to exec syntax once analysed */
 /*===============================================*/
 
-var cmdArray=[]; //This array contains the list of statements that are valid
-var execFuncArray=[]; //This array contains the list of funtions that are executed when the stmt is identified.
+function newStatement(stmtName, stmtFunction){ //This function pushes the new stmt and its function into the global arrays
+	cmdArray.push(stmtName);
+	cmdFuncArray.push(stmtFunction);
+}
+
+function pushInOrder(num){
+	execOrderArray.push(num);
+}
+
+alert("this is all correct")
+
+function executeStatements(stmtArray){
+	var len=execOrderArray.length;
+	var i=0;
+	
+	while(i<len){
+		cmdFuncArray[i]();
+		i+=1;
+	}
+	
+}
 
 /*===============================================*/
 /*                   They end here.              */
