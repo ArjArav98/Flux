@@ -227,18 +227,16 @@ function newStatement(stmtName, stmtFunction){ //This function pushes the new st
 	cmdFuncArray.push(stmtFunction);
 }
 
-function pushInOrder(num){
+function pushInOrder(num){ //This function pushes a passed-in index number into the execOrderArray
 	execOrderArray.push(num);
 }
 
-alert("this is all correct")
-
-function executeStatements(stmtArray){
+function executeStatements(stmtArray){ //According to the index number in the execOrderArray, we execute the index-th function in the cmdFuncArray.
 	var len=execOrderArray.length;
 	var i=0;
 	
 	while(i<len){
-		cmdFuncArray[i]();
+		cmdFuncArray[execOrderArray[i]]();
 		i+=1;
 	}
 	
@@ -247,3 +245,10 @@ function executeStatements(stmtArray){
 /*===============================================*/
 /*                   They end here.              */
 /*===============================================*/
+
+
+/*=======*/
+/* USAGE */
+/*=======*/
+
+//newStatement(cmdName, funcName)
